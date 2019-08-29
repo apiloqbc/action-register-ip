@@ -1,19 +1,16 @@
-FROM alpine:latest
+FROM alpine
 
-LABEL "com.github.actions.name"="git-bash"
-LABEL "com.github.actions.description"="Run a command or script in a Git-ready environment"
-LABEL "com.github.actions.icon"="hash"
-LABEL "com.github.actions.color"="black"
+LABEL "name"="github-push"
+LABEL "maintainer"="Adam Dobrawy <git+push@jawnosc.tk>"
+LABEL "version"="0.0.1"
 
-RUN set -e -x; \
-        apk add --no-cache \
-            bash \
-            curl \
-            jq \
-            git \
-            openssh-client \
-        ;
+LABEL "com.github.actions.name"="Git push for GitHub Actions"
+LABEL "com.github.actions.description"="Runs 'git push' to GitHub in an Action"
+LABEL "com.github.actions.icon"="upload-cloud"
+LABEL "com.github.actions.color"="green"
 
-COPY git-bash-wrapper /usr/local/bin/
+COPY README.md LICENSE start.sh /
 
-ENTRYPOINT ["/usr/local/bin/git-bash-wrapper"]
+RUN apk add --no-cache git
+
+CMD ["/start.sh"]
